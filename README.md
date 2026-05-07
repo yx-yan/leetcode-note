@@ -42,3 +42,4 @@ class Solution:
 
 | # | Title | Difficulty | Topics |
 |---|-------|------------|--------|
+| 3660 | [Jump Game IX](stack_queue/3660_jump_game_ix.py) | Medium | Array, Stack, Union Find |
