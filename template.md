@@ -3,10 +3,14 @@
 # Difficulty: Easy / Medium / Hard
 # Topics: <tag1>, <tag2>
 
+## Solution 1
+
+```python
 class Solution:
     def solve(self):
         pass
+```
 
-# Time:  O(?)
+# Time: O(?)
 # Space: O(?)
 # Notes: <key insight>

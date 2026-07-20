@@ -66,25 +66,8 @@ class Utils:
 # =========================================================================
 # @lc code=start
 class Solution:
-    def isGood(self, nums: List[int]) -> bool:
-        hash_table = {}
-        maxi = max(nums)
-        for num in nums:
-            if num not in nums:
-                hash_table[num] = 1
-            elif num == maxi and hash_table[maxi] == 1:
-                hash_table[maxi] += 1
-            else:
-                return False
-        
-        n = len(nums)
-        for i in range(1, n):
-            if i not in hash_table or hash_table[i] != 1:
-                return False
-        if hash_table[maxi] == 2:
-            return True
-        else:
-            return False
+    def maxTotalValue(self, nums: List[int], k: int) -> int:
+        raise NotImplementedError("Add the solution under test here")
 # @lc code=end
 
 # =========================================================================
@@ -133,10 +116,8 @@ if __name__ == "__main__":
     TARGET_METHOD = _methods[0]
 
     my_test_cases = [
-        ([2, 1, 3], False),
-        ([1, 3, 3, 2], True),
-        ([1, 1], True),
-        ([3, 4, 4, 1, 2, 1], False)
+        (([1,3,2], 2), 4),
+        (([4,2,5,1], 3), 12)
     ]
 
     run_test_engine(TARGET_METHOD, my_test_cases)
