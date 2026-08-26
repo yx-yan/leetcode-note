@@ -66,8 +66,35 @@ class Utils:
 # =========================================================================
 # @lc code=start
 class Solution:
-    def maxTotalValue(self, nums: List[int], k: int) -> int:
-        raise NotImplementedError("Add the solution under test here")
+    def shortestBeautifulSubstring(self, s: str, k: int) -> str:
+        n = len(s)
+        l, r = 0, k - 1
+        ld, rd = 0, 0
+        n1 = []
+        for i in range(n):
+            if s[i] == "1":
+                n1.append(i)
+
+        m = len(n1)
+        if m < k:
+            return ""
+        le = 101
+        while(r < m):
+            if n1[r] - n1[l] == le:
+                i = 0
+                while(n1[l + i] - n1[l] == n1[ld + i] - n1[ld]) and i < k - 1:
+                    i += 1
+                if n1[l + i] - n1[l] > n1[ld + i] - n1[ld]:
+                    ld = l
+                    rd = r
+            if n1[r] - n1[l] < le:
+                ld = l
+                rd = r
+                le = n1[r] - n1[l]
+            r += 1
+            l += 1
+
+        return s[n1[ld]:n1[rd] + 1]
 # @lc code=end
 
 # =========================================================================
@@ -116,8 +143,11 @@ if __name__ == "__main__":
     TARGET_METHOD = _methods[0]
 
     my_test_cases = [
-        (([1,3,2], 2), 4),
-        (([4,2,5,1], 3), 12)
+        (("100011001", 3), "11001"),
+        (("1011", 2), "11"),
+        (("000", 1), ""),
+        (("001110101101101111", 10), "10101101101111"),
+        (("1010110101", 5), "10101101")
     ]
 
     run_test_engine(TARGET_METHOD, my_test_cases)
