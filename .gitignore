@@ -7,3 +7,6 @@ __pycache__/
 # AI agent instructions (local only)
 AGENTS.md
 CLAUDE.md
+
+# Local scratch file
+playground.py

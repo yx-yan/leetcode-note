@@ -10,7 +10,8 @@ leetcode-note/
 ├── python_idioms.md     # Python 惯用法速查
 ├── solutions/           # 题解，按专题分目录，如 solutions/arrays/
 ├── template.py          # 新题解模板
-├── playground.py        # 当前题目的临时调试区
+├── helpers.py           # 测试引擎与链表 / 树工具
+├── playground.py        # 当前题目的草稿区（本地，不提交）
 ├── test_solutions.py    # 已完成题目的回归测试
 └── LeetCode_101.pdf     # 参考资料
 ```
@@ -27,4 +28,25 @@ leetcode-note/
 ```bash
 python3 playground.py       # 调试当前题目
 python3 test_solutions.py   # 测试已有题解
+```
+
+`playground.py` 不进 git。新克隆仓库后，按下面的骨架新建一个即可：
+
+```python
+from typing import List, Optional
+from collections import Counter, defaultdict, deque
+
+from helpers import ListNode, TreeNode, Utils, run_test_engine
+
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        ...
+
+
+if __name__ == "__main__":
+    my_test_cases = [
+        (([2, 7, 11, 15], 9), [0, 1]),
+    ]
+    run_test_engine(Solution, my_test_cases)
 ```
