@@ -19,6 +19,15 @@ def load_solution(relative_path: str):
 
 
 class SolutionTests(unittest.TestCase):
+    def test_1_two_sum(self):
+        module = load_solution("solutions/arrays/1_two_sum.py")
+
+        for solution_cls in (module.SolutionBruteForce, module.SolutionHashMap):
+            solution = solution_cls()
+            self.assertEqual(solution.twoSum([2, 7, 11, 15], 9), [0, 1])
+            self.assertEqual(solution.twoSum([3, 2, 4], 6), [1, 2])
+            self.assertEqual(solution.twoSum([3, 3], 6), [0, 1])
+
     def test_2196_create_binary_tree(self):
         module = load_solution("solutions/trees/2196_create_binary_tree_from_descriptions.py")
         descriptions = [

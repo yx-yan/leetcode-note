@@ -7,6 +7,9 @@
 | 写法 | 作用 | 出处 |
 |---|---|---|
 | `seen = {}` / `seen.get(x, 0)` | 哈希表查找，带默认值 | 1 |
+| `if x in seen:` | 判断 key 是否在 dict 里，平均 O(1)；list 的 `in` 是 O(n) | 1 |
+| `seen[num] = i` | 存「值 → 下标」，之后按值反查下标 | 1 |
+| 边遍历边存：先查 `target - num`，再存 `num` | 一遍扫描找配对；先查后存，避免同一个元素用两次 | 1 |
 | `Counter(s)` | 计数；两个 Counter 可以直接 `==` 比较 | 242 |
 | `defaultdict(list)` | 访问不存在的 key 时自动建空列表 | 49 |
 | `deque()` / `popleft()` | O(1) 队首出队，用于 BFS | 102 |
