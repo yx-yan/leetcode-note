@@ -1,11 +1,11 @@
-# Problem: Find the Prefix Common Array of Two Arrays
+# Problem: 2657. Find the Prefix Common Array of Two Arrays
 # Link: https://leetcode.com/problems/find-the-prefix-common-array-of-two-arrays/
 # Difficulty: Medium
 # Topics: Hash Table, Array
 
-## Solution 1
+from typing import List
 
-```python
+
 class Solution:
     def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
         table = {}
@@ -23,9 +23,9 @@ class Solution:
                 ans += 1
             output.append(ans)
         return output
-```
 
-# Time: O(n)
+
+# Time:  O(n)
 # Space: O(n)
 # Notes: Each value appears once in each input permutation. The running count
 # increases when a value is encountered for the second time.

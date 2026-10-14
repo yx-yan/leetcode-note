@@ -1,11 +1,11 @@
-# Problem: Minimum Common Value
+# Problem: 2540. Minimum Common Value
 # Link: https://leetcode.com/problems/minimum-common-value/
 # Difficulty: Easy
 # Topics: Two Pointers, Array
 
-## Solution 1
+from typing import List
 
-```python
+
 class Solution:
     def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
         i, j = 0, 0
@@ -20,9 +20,9 @@ class Solution:
                 i += 1
 
         return -1
-```
 
-# Time: O(m + n)
+
+# Time:  O(m + n)
 # 双指针遍历，每次循环至少推进一个指针，总步数不超过两个数组长度之和。
 #
 # Space: O(1)

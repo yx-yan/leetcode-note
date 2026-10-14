@@ -1,4 +1,4 @@
-# Problem: Jump Game IX
+# Problem: 3660. Jump Game IX
 # Link: https://leetcode.com/problems/jump-game-ix/
 # Difficulty: Medium
 # Topics: Array, Stack, Union Find
@@ -7,6 +7,7 @@
 #   jump forward to j > i  if nums[j] < nums[i]
 #   jump backward to j < i if nums[j] > nums[i]
 # Return an array where ans[i] = max value reachable from i.
+
 
 class Solution:
     def maximumValueSum(self, nums: list[int]) -> list[int]:

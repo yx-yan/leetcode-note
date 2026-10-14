@@ -1,11 +1,10 @@
-from collections import deque
-from typing import List, Optional
-
-
-# Problem: Create Binary Tree From Descriptions
+# Problem: 2196. Create Binary Tree From Descriptions
 # Link: https://leetcode.com/problems/create-binary-tree-from-descriptions/
 # Difficulty: Medium
 # Topics: Tree, Hash Table, Breadth-First Search
+
+from collections import deque
+from typing import List, Optional
 
 
 class TreeNode:
@@ -16,9 +15,7 @@ class TreeNode:
 
 
 class Solution:
-    def createBinaryTree(
-        self, descriptions: List[List[int]]
-    ) -> Optional[TreeNode]:
+    def createBinaryTree(self, descriptions: List[List[int]]) -> Optional[TreeNode]:
         # Sets to track unique children and parents
         children = set()
         parents = set()

@@ -17,11 +17,12 @@ class ListNode:
 
     def __repr__(self):
         values = []
-        cur = self
-        while cur:
-            values.append(str(cur.val))
-            cur = cur.next
+        current = self
+        while current:
+            values.append(str(current.val))
+            current = current.next
         return " -> ".join(values)
+
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -29,72 +30,118 @@ class TreeNode:
         self.left = left
         self.right = right
 
+
 class Utils:
     """提供数组与链表、二叉树之间的互相转换"""
+
     @staticmethod
-    def to_linked_list(arr: list) -> Optional[ListNode]:
-        if not arr: return None
-        head = ListNode(arr[0])
-        cur = head
-        for i in range(1, len(arr)):
-            cur.next = ListNode(arr[i])
-            cur = cur.next
+    def to_linked_list(values: list) -> Optional[ListNode]:
+        if not values:
+            return None
+        head = ListNode(values[0])
+        current = head
+        for value in values[1:]:
+            current.next = ListNode(value)
+            current = current.next
         return head
 
     @staticmethod
     def to_list(head: Optional[ListNode]) -> list:
-        res = []
+        values = []
         while head:
-            res.append(head.val)
+            values.append(head.val)
             head = head.next
-        return res
+        return values
 
     @staticmethod
-    def to_tree(arr: list) -> Optional[TreeNode]:
-        if not arr: return None
-        nodes = [TreeNode(val) if val is not None else None for val in arr]
-        kids = nodes[::-1]
-        root = kids.pop()
+    def to_tree(values: list) -> Optional[TreeNode]:
+        if not values:
+            return None
+        nodes = [TreeNode(value) if value is not None else None for value in values]
+        children = nodes[::-1]
+        root = children.pop()
         for node in nodes:
             if node:
-                if kids: node.left = kids.pop()
-                if kids: node.right = kids.pop()
+                if children:
+                    node.left = children.pop()
+                if children:
+                    node.right = children.pop()
         return root
+
 
 # =========================================================================
 # 2. 你的 Solution 类 (直接从 LeetCode 粘贴)
 # =========================================================================
 # @lc code=start
 class Solution:
-    def shortestBeautifulSubstring(self, s: str, k: int) -> str:
+    def lexGreaterPermutation(self, s: str, target: str) -> str:
         n = len(s)
-        l, r = 0, k - 1
-        ld, rd = 0, 0
-        n1 = []
-        for i in range(n):
-            if s[i] == "1":
-                n1.append(i)
+        # sort the input
+        s1 = sorted(s)
 
-        m = len(n1)
-        if m < k:
+        output = ""
+        used = []
+        open = 0
+        for i in range(n):       # target loop
+            matched = False
+            for j in range(n):   # input loop
+                if open == 0:
+                    if j not in used:
+                        if target[i] == s1[j]:
+                            output = output + s1[j]
+                            used.append(j)
+                            matched = True
+                            break
+                        if target[i] < s1[j]:
+                            open = 1
+                            output = output + s1[j]
+                            used.append(j)
+                            matched = True
+                            break
+                else:
+                    if j not in used:
+                        output = output + s1[j]
+                        used.append(j)
+                        matched = True
+                        break
+            if not matched:
+                break
+
+        # Asking AI for help
+        if len(output) < n:
+            for x in range(len(output) - 1, -1, -1):
+                used_index = used[x]
+
+                for j in range(used_index + 1, n):
+                    if j not in used[:x] and s1[j] > target[x]:
+                        output = output[:x] + s1[j]
+
+                        remaining = []
+                        used_before = used[:x] + [j]
+
+                        for k in range(n):
+                            if k not in used_before:
+                                remaining.append(s1[k])
+
+                        output += ''.join(remaining)
+                        return output
+
             return ""
-        le = 101
-        while(r < m):
-            if n1[r] - n1[l] == le:
-                i = 0
-                while(n1[l + i] - n1[l] == n1[ld + i] - n1[ld]) and i < k - 1:
-                    i += 1
-                if n1[l + i] - n1[l] > n1[ld + i] - n1[ld]:
-                    ld = l
-                    rd = r
-            if n1[r] - n1[l] < le:
-                ld = l
-                rd = r
-                le = n1[r] - n1[l]
-            r += 1
-            l += 1
 
-        return s[n1[ld]:n1[rd] + 1]
+        
+        found = False
+        if output == target:
+            for x in range(n - 2, -1, -1):
+                for y in range(n - 1, x, -1):
+                    if output[x] < output[y]:
+                        output = output[:x] + output[y] + ''.join(sorted(output[x:y] + output[y + 1:]))
+                        found = True
+                        break
+                if found:
+                    break
+        if output == target:
+            return ""
+        return output
 # @lc code=end
 
 # =========================================================================
@@ -143,11 +190,13 @@ if __name__ == "__main__":
     TARGET_METHOD = _methods[0]
 
     my_test_cases = [
-        (("100011001", 3), "11001"),
-        (("1011", 2), "11"),
-        (("000", 1), ""),
-        (("001110101101101111", 10), "10101101101111"),
-        (("1010110101", 5), "10101101")
+        (("aab", "abb"), "baa"),
+        (("aab", "aab"), "aba"),
+        (("aab", "aba"), "baa"),
+        (("abc", "bba"), "bca"),
+        (("leet", "code"), "eelt"),
+        (("baba", "bbaa"), ""),
+        (("ab", "ab"), "ba")
     ]
 
     run_test_engine(TARGET_METHOD, my_test_cases)

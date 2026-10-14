@@ -1,11 +1,11 @@
-# Problem: Find the Length of the Longest Common Prefix
+# Problem: 3043. Find the Length of the Longest Common Prefix
 # Link: https://leetcode.com/problems/find-the-length-of-the-longest-common-prefix/
 # Difficulty: Medium
 # Topics: Array, Hash Table
 
-## Solution 1
+from typing import List
 
-```python
+
 class Solution:
     def longestCommonPrefix(self, arr1: List[int], arr2: List[int]) -> int:
         arr1_prefix = set()
@@ -24,9 +24,9 @@ class Solution:
                 output = max(output, len(str(arr)))
 
         return output
-```
 
-# Time: O(d1 + d2), where d1 and d2 are the total digits in each array
+
+# Time:  O(d1 + d2), where d1 and d2 are the total digits in each array
 # Space: O(d1)
 # Notes: Store every numeric prefix from arr1, then trim each arr2 value until
 # it matches the longest stored prefix.

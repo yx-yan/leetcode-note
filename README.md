@@ -1,50 +1,30 @@
 # LeetCode Note
 
-Personal LeetCode practice in Python, organized by topic.
+个人 LeetCode Python 题解，按知识点分类。进度和打卡见 [study_plan.md](study_plan.md)。
 
-## Structure
+## 目录
 
-```
+```text
 leetcode-note/
-├── arrays/
-├── strings/
-├── linked_list/
-├── trees/
-├── graphs/
-├── dynamic_programming/
-├── binary_search/
-├── sliding_window/
-├── two_pointers/
-├── stack_queue/
-└── math/
+├── study_plan.md        # 8 周打卡表（唯一的进度记录）
+├── python_idioms.md     # Python 惯用法速查
+├── solutions/           # 题解，按专题分目录，如 solutions/arrays/
+├── template.py          # 新题解模板
+├── playground.py        # 当前题目的临时调试区
+├── test_solutions.py    # 已完成题目的回归测试
+└── LeetCode_101.pdf     # 参考资料
 ```
 
-## Template
+## 每道题的流程
 
-Use [`template.md`](template.md) as the readable starter format for new notes and solutions:
+1. **想**：独立思考 15–20 分钟，卡住只看思路，不看代码。
+2. **写**：在 `playground.py` 里写出能 AC 的版本。
+3. **读**：精读 1–2 份高赞 Python 题解，新学到的写法记进 `python_idioms.md`。
+4. **重写**：关掉题解，从零再写一遍。
+5. **存档**：复制 `template.py` 到 `solutions/<专题>/<id>_<slug>.py`，
+   在 `test_solutions.py` 补一个案例，然后在 `study_plan.md` 打卡。
 
-```python
-# Problem: <title>
-# Link: https://leetcode.com/problems/<slug>/
-# Difficulty: Easy / Medium / Hard
-# Topics: <tag1>, <tag2>
-
-class Solution:
-    def solve(self, ...):
-        pass
-
-# Time:  O(?)
-# Space: O(?)
-# Notes: <key insight>
+```bash
+python3 playground.py       # 调试当前题目
+python3 test_solutions.py   # 测试已有题解
 ```
-
-## Progress
-
-| # | Title | Difficulty | Topics |
-|---|-------|------------|--------|
-| 2196 | [Create Binary Tree From Descriptions](trees/2196_create_binary_tree_from_descriptions.py) | Medium | Tree, Hash Table, BFS |
-| 2540 | [Minimum Common Value](two_pointers/2540_minimum_common_value.md) | Easy | Array, Two Pointers |
-| 2657 | [Find the Prefix Common Array of Two Arrays](arrays/2657_find_the_prefix_common_array_of_two_arrays.md) | Medium | Array, Hash Table |
-| 2904 | [Shortest and Lexicographically Smallest Beautiful String](sliding_window/2904_shortest_and_lexicographically_smallest_beautiful_string.py) | Medium | String, Sliding Window |
-| 3043 | [Find the Length of the Longest Common Prefix](arrays/3043_find_the_length_of_the_longest_common_prefix.md) | Medium | Array, Hash Table |
-| 3660 | [Jump Game IX](stack_queue/3660_jump_game_ix.py) | Medium | Array, Stack, Union Find |

@@ -3,3 +3,7 @@ __pycache__/
 .DS_Store
 .venv/
 *.egg-info/
+
+# AI agent instructions (local only)
+AGENTS.md
+CLAUDE.md
