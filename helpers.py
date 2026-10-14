@@ -1,7 +1,32 @@
-"""playground.py 用到的公共工具：LeetCode 数据结构、转换函数和测试引擎。"""
+"""playground.py 用到的公共工具：常用库、LeetCode 数据结构、转换函数和测试引擎。
 
+playground.py 只需 `from helpers import *`，就能拿到 LeetCode 环境里常用的
+库（List、Counter、heapq……）。脚本运行结束时，会自动用 `tests` 测试 `Solution`。
+"""
+
+import atexit
+import bisect
+import functools
+import heapq
+import itertools
+import json
+import math
+import re
+import sys
 import time
-from typing import Optional
+import traceback
+from collections import Counter, defaultdict, deque
+from functools import cache, lru_cache
+from math import inf
+from typing import Dict, List, Optional, Set, Tuple
+
+__all__ = [
+    "List", "Optional", "Dict", "Set", "Tuple",
+    "Counter", "defaultdict", "deque",
+    "bisect", "functools", "heapq", "itertools", "math",
+    "cache", "lru_cache", "inf",
+    "ListNode", "TreeNode", "Utils", "run_test_engine",
+]
 
 
 # =========================================================================
@@ -67,10 +92,65 @@ class Utils:
 
 
 # =========================================================================
+# 解析 LeetCode 题面里的 Example 文本
+# =========================================================================
+def _split_top_level(text: str) -> list:
+    """按最外层逗号切分，忽略括号和字符串里的逗号。"""
+    parts, depth, in_str, escaped, start = [], 0, False, False, 0
+    for i, ch in enumerate(text):
+        if in_str:
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == '"':
+                in_str = False
+        elif ch == '"':
+            in_str = True
+        elif ch in "[{(":
+            depth += 1
+        elif ch in "]})":
+            depth -= 1
+        elif ch == "," and depth == 0:
+            parts.append(text[start:i])
+            start = i + 1
+    parts.append(text[start:])
+    return [part.strip() for part in parts if part.strip()]
+
+
+def _parse_value(text: str):
+    """LeetCode 的字面量（true/false/null、双引号字符串）转成 Python 值。"""
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        import ast
+        return ast.literal_eval(text)
+
+
+def parse_examples(text: str) -> list:
+    """把粘贴的 "Input: a = 1, b = [2]  Output: 3" 文本转成 [((1, [2]), 3), ...]。"""
+    text = text.replace("\xa0", " ")
+    pattern = r"Input:?\s*(.*?)\s*Output:?\s*(.*?)\s*(?:\n|$)"
+    cases = []
+    for raw_input, raw_output in re.findall(pattern, text, re.S):
+        args = []
+        for part in _split_top_level(raw_input.replace("\n", " ")):
+            name, sep, value = part.partition("=")
+            args.append(_parse_value((value if sep else name).strip()))
+        cases.append((tuple(args), _parse_value(raw_output)))
+    return cases
+
+
+# =========================================================================
 # 自动化测试引擎
 # =========================================================================
-def run_test_engine(solution_cls, test_cases: list):
-    """运行 solution_cls 中定义的第一个公开方法，逐条对比 (输入, 预期) 用例。"""
+def run_test_engine(solution_cls, test_cases):
+    """运行 solution_cls 中定义的第一个公开方法，逐条对比 (输入, 预期) 用例。
+
+    test_cases 可以是 [(输入, 预期), ...]，也可以是直接粘贴的题面 Example 文本。
+    """
+    if isinstance(test_cases, str):
+        test_cases = parse_examples(test_cases)
     method_name = next(
         name for name, value in vars(solution_cls).items()
         if callable(value) and not name.startswith("_")
@@ -101,6 +181,19 @@ def run_test_engine(solution_cls, test_cases: list):
                 print(f"   输入: {args}")
                 print(f"   预期: {expected}")
                 print(f"   实际: {actual}")
-        except Exception as e:
-            print(f"Case {i+1}: 💥 ERROR | 错误类型: {type(e).__name__}: {e}")
+        except Exception:
+            print(f"Case {i+1}: 💥 ERROR | 输入: {args}")
+            print(traceback.format_exc())
     print(f"{'='*55}\n")
+
+
+# =========================================================================
+# 自动运行：脚本结束时，用主程序里的 tests 测试 Solution
+# =========================================================================
+@atexit.register
+def _auto_run():
+    main = sys.modules.get("__main__")
+    solution_cls = getattr(main, "Solution", None)
+    test_cases = getattr(main, "tests", None)
+    if solution_cls is not None and test_cases is not None:
+        run_test_engine(solution_cls, test_cases)

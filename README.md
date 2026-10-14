@@ -33,20 +33,18 @@ python3 test_solutions.py   # 测试已有题解
 `playground.py` 不进 git。新克隆仓库后，按下面的骨架新建一个即可：
 
 ```python
-from typing import List, Optional
-from collections import Counter, defaultdict, deque
-
-from helpers import ListNode, TreeNode, Utils, run_test_engine
+from helpers import *  # 常用库 + 自动测试，不用动
 
 
+# ============ 1. 粘贴 Solution ============
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         ...
 
 
-if __name__ == "__main__":
-    my_test_cases = [
-        (([2, 7, 11, 15], 9), [0, 1]),
-    ]
-    run_test_engine(Solution, my_test_cases)
+# ============ 2. 测试用例：把题面的 Example 整段粘进三引号 ============
+tests = """
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+"""
 ```
