@@ -28,6 +28,19 @@ class SolutionTests(unittest.TestCase):
             self.assertEqual(solution.twoSum([3, 2, 4], 6), [1, 2])
             self.assertEqual(solution.twoSum([3, 3], 6), [0, 1])
 
+    def test_217_contains_duplicate(self):
+        module = load_solution("solutions/arrays/217_contains_duplicate.py")
+
+        for solution_cls in (
+            module.SolutionHashSet,
+            module.SolutionOneLiner,
+            module.SolutionSort,
+        ):
+            solution = solution_cls()
+            self.assertTrue(solution.containsDuplicate([1, 2, 3, 1]))
+            self.assertFalse(solution.containsDuplicate([1, 2, 3, 4]))
+            self.assertTrue(solution.containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]))
+
     def test_2196_create_binary_tree(self):
         module = load_solution("solutions/trees/2196_create_binary_tree_from_descriptions.py")
         descriptions = [

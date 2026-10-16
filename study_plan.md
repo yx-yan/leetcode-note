@@ -28,7 +28,7 @@
 | Day | 题目 | Python 重点 | 打卡 |
 |---|---|---|---|
 | 1 | [1. Two Sum](https://leetcode.com/problems/two-sum/) | `dict`、`enumerate` | |
-| 1 | [217. Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) | `set` | |
+| 1 | [217. Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) | `set` | ✅ 2026-10-16 |
 | 2 | [242. Valid Anagram](https://leetcode.com/problems/valid-anagram/) | `Counter` | |
 | 2 | [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/) | `defaultdict(list)`、元组作 key | |
 | 3 | [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | `most_common`、桶 | |
