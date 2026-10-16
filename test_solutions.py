@@ -41,6 +41,22 @@ class SolutionTests(unittest.TestCase):
             self.assertFalse(solution.containsDuplicate([1, 2, 3, 4]))
             self.assertTrue(solution.containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]))
 
+    def test_242_valid_anagram(self):
+        module = load_solution("solutions/arrays/242_valid_anagram.py")
+
+        for solution_cls in (
+            module.SolutionCount,
+            module.SolutionSort,
+            module.SolutionHashMap,
+            module.SolutionCounter,
+            module.SolutionArray,
+        ):
+            solution = solution_cls()
+            self.assertTrue(solution.isAnagram("anagram", "nagaram"))
+            self.assertFalse(solution.isAnagram("rat", "car"))
+            self.assertFalse(solution.isAnagram("ab", "a"))
+            self.assertFalse(solution.isAnagram("aab", "abb"))
+
     def test_2196_create_binary_tree(self):
         module = load_solution("solutions/trees/2196_create_binary_tree_from_descriptions.py")
         descriptions = [
