@@ -16,6 +16,9 @@
 | `Counter(s)` | 计数；两个 Counter 可以直接 `==` 比较 | 242 |
 | `defaultdict(list)` | 访问不存在的 key 时自动建空列表 | 49 |
 | `groups[tuple(count)]` | dict 的 key 必须可哈希：list 不行，转成 tuple 或 str | 49 |
+| `d.items()` | 遍历 dict 的 (key, value) 对；`items` 是方法名，不能改 | 347 |
+| `sorted(d.items(), key=lambda x: x[1], reverse=True)` | 按 value 降序排，返回新的 list | 347 |
+| `Counter(nums).most_common(k)` | 出现次数最多的 k 个 (元素, 次数) | 347 |
 | `deque()` / `popleft()` | O(1) 队首出队，用于 BFS | 102 |
 | `OrderedDict` / `move_to_end` | 有序字典，LRU 缓存 | 146 |
 

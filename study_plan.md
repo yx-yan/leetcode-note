@@ -31,7 +31,7 @@
 | 1 | [217. Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) | `set` | ✅ 2026-10-16 |
 | 2 | [242. Valid Anagram](https://leetcode.com/problems/valid-anagram/) | `Counter` | ✅ 2026-10-16 |
 | 2 | [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/) | `defaultdict(list)`、元组作 key | ✅ 2026-10-17 |
-| 3 | [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | `most_common`、桶 | |
+| 3 | [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | `most_common`、桶 | ✅ 2026-10-18 |
 | 3 | [128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) | `set` O(1) 查找 | |
 | 4 | [303. Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/) | 前缀和、`accumulate` | |
 | 4 | [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | `[1] * n`、正反两遍 | |

@@ -73,6 +73,22 @@ class SolutionTests(unittest.TestCase):
             self.assertFalse(solution.isAnagram("ab", "a"))
             self.assertFalse(solution.isAnagram("aab", "abb"))
 
+    def test_347_top_k_frequent(self):
+        module = load_solution("solutions/arrays/347_top_k_frequent_elements.py")
+
+        for solution_cls in (
+            module.SolutionSort,
+            module.SolutionCounter,
+            module.SolutionBucket,
+        ):
+            solution = solution_cls()
+            # 答案顺序不重要
+            self.assertEqual(sorted(solution.topKFrequent([1, 1, 1, 2, 2, 3], 2)), [1, 2])
+            self.assertEqual(solution.topKFrequent([1], 1), [1])
+            self.assertEqual(
+                sorted(solution.topKFrequent([1, 2, 1, 2, 1, 2, 3, 1, 3, 2], 2)), [1, 2]
+            )
+
     def test_2196_create_binary_tree(self):
         module = load_solution("solutions/trees/2196_create_binary_tree_from_descriptions.py")
         descriptions = [
