@@ -28,6 +28,22 @@ class SolutionTests(unittest.TestCase):
             self.assertEqual(solution.twoSum([3, 2, 4], 6), [1, 2])
             self.assertEqual(solution.twoSum([3, 3], 6), [0, 1])
 
+    def test_49_group_anagrams(self):
+        module = load_solution("solutions/arrays/49_group_anagrams.py")
+
+        def normalize(groups):
+            # 组的顺序、组内顺序都不重要
+            return sorted(sorted(g) for g in groups)
+
+        for solution_cls in (module.SolutionSort, module.SolutionCount):
+            solution = solution_cls()
+            self.assertEqual(
+                normalize(solution.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])),
+                normalize([["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]),
+            )
+            self.assertEqual(solution.groupAnagrams([""]), [[""]])
+            self.assertEqual(solution.groupAnagrams(["a"]), [["a"]])
+
     def test_217_contains_duplicate(self):
         module = load_solution("solutions/arrays/217_contains_duplicate.py")
 

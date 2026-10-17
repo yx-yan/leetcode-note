@@ -15,6 +15,7 @@
 | `len(set(nums)) != len(nums)` | 一行判断有无重复，但不能提前退出 | 217 |
 | `Counter(s)` | 计数；两个 Counter 可以直接 `==` 比较 | 242 |
 | `defaultdict(list)` | 访问不存在的 key 时自动建空列表 | 49 |
+| `groups[tuple(count)]` | dict 的 key 必须可哈希：list 不行，转成 tuple 或 str | 49 |
 | `deque()` / `popleft()` | O(1) 队首出队，用于 BFS | 102 |
 | `OrderedDict` / `move_to_end` | 有序字典，LRU 缓存 | 146 |
 
