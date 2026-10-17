@@ -13,6 +13,9 @@
 | 边遍历边存：先查 `target - num`，再存 `num` | 一遍扫描找配对；先查后存，避免同一个元素用两次 | 1 |
 | `seen = set()` / `seen.add(x)` | 只判断「是否出现过」用 set；需要计数或存下标才用 dict | 217 |
 | `len(set(nums)) != len(nums)` | 一行判断有无重复，但不能提前退出 | 217 |
+| `if x - 1 not in num_set` | 用 set 的 O(1) 查找判断 x 是不是一段的起点 | 128 |
+| `a[x] = a[y] = a[z] = v` | 链式赋值，同一个值赋给多个位置 | 128 |
+| `max(iterable, default=0)` | 空序列时返回 default，不会报错 | 128 |
 | `Counter(s)` | 计数；两个 Counter 可以直接 `==` 比较 | 242 |
 | `defaultdict(list)` | 访问不存在的 key 时自动建空列表 | 49 |
 | `groups[tuple(count)]` | dict 的 key 必须可哈希：list 不行，转成 tuple 或 str | 49 |

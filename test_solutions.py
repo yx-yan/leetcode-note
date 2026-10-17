@@ -44,6 +44,22 @@ class SolutionTests(unittest.TestCase):
             self.assertEqual(solution.groupAnagrams([""]), [[""]])
             self.assertEqual(solution.groupAnagrams(["a"]), [["a"]])
 
+    def test_128_longest_consecutive(self):
+        module = load_solution("solutions/arrays/128_longest_consecutive_sequence.py")
+
+        for solution_cls in (
+            module.SolutionSort,
+            module.SolutionHashSet,
+            module.SolutionBoundary,
+            module.SolutionUnionFind,
+        ):
+            solution = solution_cls()
+            self.assertEqual(solution.longestConsecutive([100, 4, 200, 1, 3, 2]), 4)
+            self.assertEqual(solution.longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]), 9)
+            self.assertEqual(solution.longestConsecutive([1, 0, 1, 2]), 3)
+            self.assertEqual(solution.longestConsecutive([]), 0)
+            self.assertEqual(solution.longestConsecutive([-3, -2, -1, 5]), 3)
+
     def test_217_contains_duplicate(self):
         module = load_solution("solutions/arrays/217_contains_duplicate.py")
 
