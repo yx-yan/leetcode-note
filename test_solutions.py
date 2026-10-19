@@ -89,6 +89,20 @@ class SolutionTests(unittest.TestCase):
             self.assertFalse(solution.isAnagram("ab", "a"))
             self.assertFalse(solution.isAnagram("aab", "abb"))
 
+    def test_303_range_sum_query(self):
+        module = load_solution("solutions/arrays/303_range_sum_query_immutable.py")
+
+        for cls in (
+            module.NumArrayBruteForce,
+            module.NumArrayPrefixSum,
+            module.NumArrayAccumulate,
+        ):
+            obj = cls([-2, 0, 3, -5, 2, -1])
+            self.assertEqual(obj.sumRange(0, 2), 1)
+            self.assertEqual(obj.sumRange(2, 5), -1)
+            self.assertEqual(obj.sumRange(0, 5), -3)
+            self.assertEqual(obj.sumRange(3, 3), -5)
+
     def test_347_top_k_frequent(self):
         module = load_solution("solutions/arrays/347_top_k_frequent_elements.py")
 
