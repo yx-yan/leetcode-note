@@ -25,7 +25,7 @@ __all__ = [
     "Counter", "defaultdict", "deque",
     "bisect", "functools", "heapq", "itertools", "math",
     "cache", "lru_cache", "inf",
-    "ListNode", "TreeNode", "Utils", "run_test_engine",
+    "ListNode", "TreeNode", "Utils", "run_test_engine", "run_design_test_engine",
 ]
 
 
@@ -141,6 +141,16 @@ def parse_examples(text: str) -> list:
     return cases
 
 
+def parse_design_examples(text: str) -> list:
+    """把设计题的 Example（操作名一行、参数一行、Output 一行）转成 [(ops, args, expected), ...]。"""
+    text = text.replace("\xa0", " ")
+    pattern = r"Input:?\s*\n\s*(\[.*\])\s*\n\s*(\[.*\])\s*\n\s*Output:?\s*\n\s*(\[.*\])"
+    return [
+        tuple(_parse_value(part) for part in match)
+        for match in re.findall(pattern, text)
+    ]
+
+
 # =========================================================================
 # 自动化测试引擎
 # =========================================================================
@@ -187,13 +197,51 @@ def run_test_engine(solution_cls, test_cases):
     print(f"{'='*55}\n")
 
 
+def run_design_test_engine(namespace, test_cases):
+    """设计题：按 ops 依次构造对象、调用方法，逐次对比返回值。
+
+    namespace 里要有与 ops[0] 同名的类；test_cases 可以是
+    [(ops, args, expected), ...]，也可以是直接粘贴的题面 Example 文本。
+    """
+    if isinstance(test_cases, str):
+        test_cases = parse_design_examples(test_cases)
+
+    print(f"\n{'='*20} 设计题测试开始 {'='*20}")
+    for i, (ops, args, expected) in enumerate(test_cases):
+        cls = getattr(namespace, ops[0])
+        start = time.perf_counter()
+        try:
+            obj = cls(*args[0])
+            actual = [None]
+            for op, op_args in zip(ops[1:], args[1:]):
+                actual.append(getattr(obj, op)(*op_args))
+            end = time.perf_counter()
+
+            is_correct = actual == expected
+            status = "✅ PASSED" if is_correct else "❌ FAILED"
+            print(f"Case {i+1}: {status} | 耗时: {(end-start)*1000:.4f}ms")
+            if not is_correct:
+                for op, op_args, want, got in zip(ops, args, expected, actual):
+                    mark = "  " if want == got else "❌"
+                    call = f"{op}({', '.join(map(repr, op_args))})"
+                    print(f"   {mark} {call} 预期: {want} 实际: {got}")
+        except Exception:
+            print(f"Case {i+1}: 💥 ERROR | 操作: {ops}")
+            print(traceback.format_exc())
+    print(f"{'='*55}\n")
+
+
 # =========================================================================
-# 自动运行：脚本结束时，用主程序里的 tests 测试 Solution
+# 自动运行：脚本结束时，用主程序里的 tests 测试 Solution（或设计题的类）
 # =========================================================================
 @atexit.register
 def _auto_run():
     main = sys.modules.get("__main__")
     solution_cls = getattr(main, "Solution", None)
     test_cases = getattr(main, "tests", None)
-    if solution_cls is not None and test_cases is not None:
+    if test_cases is None:
+        return
+    if solution_cls is not None:
         run_test_engine(solution_cls, test_cases)
+    elif isinstance(test_cases, str) and parse_design_examples(test_cases):
+        run_design_test_engine(main, test_cases)
