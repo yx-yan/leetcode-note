@@ -73,6 +73,19 @@ class SolutionTests(unittest.TestCase):
             self.assertFalse(solution.containsDuplicate([1, 2, 3, 4]))
             self.assertTrue(solution.containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]))
 
+    def test_238_product_except_self(self):
+        module = load_solution("solutions/arrays/238_product_of_array_except_self.py")
+
+        for solution_cls in (
+            module.SolutionTwoArrays,
+            module.SolutionConstantSpace,
+        ):
+            solution = solution_cls()
+            self.assertEqual(solution.productExceptSelf([1, 2, 3, 4]), [24, 12, 8, 6])
+            self.assertEqual(solution.productExceptSelf([-1, 1, 0, -3, 3]), [0, 0, 9, 0, 0])
+            self.assertEqual(solution.productExceptSelf([0, 0]), [0, 0])
+            self.assertEqual(solution.productExceptSelf([2, 3]), [3, 2])
+
     def test_242_valid_anagram(self):
         module = load_solution("solutions/arrays/242_valid_anagram.py")
 
