@@ -35,7 +35,7 @@
 | 3 | [128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) | `set` O(1) 查找 | ✅ 2026-10-18 |
 | 4 | [303. Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/) | 前缀和、`accumulate` | ✅ 2026-10-19 |
 | 4 | [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | `[1] * n`、正反两遍 | ✅ 2026-10-19 |
-| 5 | [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | 前缀和 + 哈希计数 | |
+| 5 | [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | 前缀和 + 哈希计数 | 🔁 2026-10-20 |
 | 5 | [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/) | `(r // 3, c // 3)` | |
 | 6 | 复习日 | | |
 | 7 | 加练：[41. First Missing Positive](https://leetcode.com/problems/first-missing-positive/)（Hard） | 原地哈希 | |

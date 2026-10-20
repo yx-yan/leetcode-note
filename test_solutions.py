@@ -132,6 +132,20 @@ class SolutionTests(unittest.TestCase):
                 sorted(solution.topKFrequent([1, 2, 1, 2, 1, 2, 3, 1, 3, 2], 2)), [1, 2]
             )
 
+    def test_560_subarray_sum_equals_k(self):
+        module = load_solution("solutions/arrays/560_subarray_sum_equals_k.py")
+
+        for solution_cls in (
+            module.SolutionBruteForce,
+            module.SolutionPrefixSumHashMap,
+        ):
+            solution = solution_cls()
+            self.assertEqual(solution.subarraySum([1, 1, 1], 2), 2)
+            self.assertEqual(solution.subarraySum([1, 2, 3], 3), 2)
+            self.assertEqual(solution.subarraySum([1], 0), 0)  # 不能数空段
+            self.assertEqual(solution.subarraySum([0, 0], 0), 3)
+            self.assertEqual(solution.subarraySum([1, -1, 0], 0), 3)
+
     def test_2196_create_binary_tree(self):
         module = load_solution("solutions/trees/2196_create_binary_tree_from_descriptions.py")
         descriptions = [

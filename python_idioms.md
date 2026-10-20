@@ -18,6 +18,7 @@
 | `max(iterable, default=0)` | 空序列时返回 default，不会报错 | 128 |
 | `Counter(s)` | 计数；两个 Counter 可以直接 `==` 比较 | 242 |
 | `defaultdict(list)` | 访问不存在的 key 时自动建空列表 | 49 |
+| `seen[pre] += 1`（`defaultdict(int)`） | 计数不用先判断 key 在不在 | 560 |
 | `groups[tuple(count)]` | dict 的 key 必须可哈希：list 不行，转成 tuple 或 str | 49 |
 | `d.items()` | 遍历 dict 的 (key, value) 对；`items` 是方法名，不能改 | 347 |
 | `sorted(d.items(), key=lambda x: x[1], reverse=True)` | 按 value 降序排，返回新的 list | 347 |
@@ -67,3 +68,4 @@
 | `lst[i] = x`（i 还不存在） | IndexError，只能改已有位置；新增用 `append` | 303 |
 | `lst[i - 1]`（i = 0） | 取到最后一个元素，不报错但悄悄算错；前缀和开头补 0 避开 | 303 |
 | 循环里 `lst.insert(0, x)` | 头部插入每次 O(n)，整体 O(n²)；先 `[1] * n` 占位再按下标填，或用 `deque.appendleft` | 238 |
+| `defaultdict` 只查不存时写 `d[key]` | key 不存在会把 `key: 0` 插进去，字典越变越大；用 `d.get(key, 0)` 或先 `key in d` | 560 |
